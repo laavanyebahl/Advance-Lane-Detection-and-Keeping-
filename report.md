@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 [image1]: ./examples/undistort.png "Undistorted"
 [image2]: ./examples/thresholding.png "Road threshold"
 [image3]: ./examples/hlsgrad.png "HLS + gradient"
-[image4]: ./examples/warp_straight_lines.jpg "Warp straight lines"
+[image4]: ./examples/warped_straight_lines.jpg "Warp straight lines"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/lane_output.png "Output"
 [image7]: ./examples/warp_thesh.png "Warp Example"
