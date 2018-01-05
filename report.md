@@ -108,7 +108,7 @@ I implemented this stepunder the cell heading of "Lane Lines" in the file `advan
 
 ### Pipeline (video)
 
-#### 1. Link to final video output.  Pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Link to final video output.  Pipeline performs reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures causes the car to drive off the road!).
 
 Here's a [link to my video result](./project_video.mp4)
 
