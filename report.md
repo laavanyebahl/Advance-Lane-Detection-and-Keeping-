@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 [image4]: ./examples/warped_straight_lines.jpg "Warp straight lines"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/lane_output.png "Output"
-[image7]: ./examples/warp_thesh.png "Warp Example"
+[image7]: ./examples/warp_thresh.png "Warp Example"
 [image8]: ./examples/histogram.png "Histogram"
 
 [video1]: ./project_video.mp4 "Video"
