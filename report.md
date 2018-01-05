@@ -24,7 +24,7 @@ The goals / steps of this project are the following:
 [image7]: ./examples/warp_thresh.png "Warp Example"
 [image8]: ./examples/histogram.png "Histogram"
 
-[video1]: ./project_video.mp4 "Video"
+[video1]: ./output_videos/project_video_out.mp4 "Video"
 
 
 ### Camera Calibration
