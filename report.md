@@ -24,8 +24,9 @@ The goals / steps of this project are the following:
 [image7]: ./examples/warp_thresh.png "Warp Example"
 [image8]: ./examples/warp_thresh2.png "Warp Example2"
 [image9]: ./examples/histogram.png "Histogram"
-[image10]: ./examples/lane_output1.png "Output1"
-[image11]: ./examples/lane_output2.png "Output1"
+[image10]: ./examples/lane_lines.png "lanes"
+[image11]: ./examples/lane_output1.png "Output1"
+[image12]: ./examples/lane_output2.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
@@ -134,7 +135,12 @@ The code for my perspective transform includes a function called `warp_img()`, w
                             [0.15*x,0]
                             ])
 
-```
+```    
+Here is the vizualization - 
+
+![alt text][image6]   
+
+
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
@@ -146,28 +152,50 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image6]
-
-#### 4. Identification of lane-line pixels and fit their positions with a polynomial.
-
 
 ![alt text][image7]
 
-![alt text][image8]   
+![alt text][image8] 
+
+
+#### 4. Identification of lane-line pixels and fit their positions with a polynomial.
+  
+After calculating the warped image. First I calculate the histogram across the image, this was implemented using numpy.sum() to sum all the pixels on the rows, the result is the following:      
 
 ![alt text][image9]   
+
+Then I passed the histogram to a function find_two_peaks_image to find the center of each of the peaks. This code can be found on the IPython notebook called `advance lane keeping.ipynb` on cell #15 and #16, then I implemented a function called sliding_window to iterate through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes starting from the centers that I found earlier. Margin is set to be 100.
+
+Once I got the pixels I fit them to a 2nd order polynomial of the form: f(y)=Ay^2 + By + C
+
+The result obtained for one of the test images is the following:    
+
+![alt text][image10]   
 
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in under the cell heading of "LaneLines" in the file `advance lane keeping.ipynb` 
+I defined the function `get_curvature_meters` under the cell heading of "Lane Lines Class for storing characteristics" in the file `advance lane keeping.ipynb`.
+
+It is used to convert pixel curves to metres curve according to the assumption that lane width is 3.7m
+Position is calculated in the function draw_lanes() with the formula -
+
+```python
+            center = und_image.shape[1]/2
+            xm_per_pix = 3.7/700
+
+            lanes_middle_distance = abs(right_lane.recent_xfitted[-1][0] + left_lane.recent_xfitted[-1][0])/2
+            position_car_pixels = center - lanes_middle_distance 
+            position_car_meters = position_car_pixels *xm_per_pix
+ ```
 
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
 I implemented this step under the cell heading of "Lane Lines" in the file `advance lane keeping.ipynb` in the function `draw_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image10]    
-![alt text][image11]
+![alt text][image11]  
+
+![alt text][image12]
 
 ---
 
