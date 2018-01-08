@@ -16,10 +16,10 @@ The goals / steps of this project are the following:
 [image0]: ./examples/draw_lines.png "Cal Lines"
 [image1a]: ./examples/undistort_cal.png "Undistorted call"
 [image1]: ./examples/undistort.png "Undistorted"
-[image2]: ./examples/thresholding.png "Road threshold"
+[image2]: ./examples/gradthresholding.png "Road threshold"
 [image3]: ./examples/combinedthresh1.png "combinedthresh1"
 [image4]: ./examples/combinedthresh2.png "combinedthresh1"
-[image5]: ./examples/hlsgrad.png "HLS + gradient"
+[image5]: ./examples/colorthresholding.png "colorthresholding"
 [image6]: ./examples/warp_points.png" "Warp src points"
 [image7]: ./examples/warp_thresh.png "Warp Example"
 [image8]: ./examples/warp_thresh2.png "Warp Example2"
@@ -39,11 +39,11 @@ The code for this step is contained in second and third cells of the IPython not
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-Here is an example of how to draw the corners with the openCV function :
+Here is an example of how to draw the corners with the openCV function :     
 `ret, corners = cv2.findChessboardCorners(gray, (9,6),None)`   
 
 
-![alt text][image0]
+![alt text][image0]    
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
@@ -66,7 +66,7 @@ I used 4 gradient thresholding :
 3. Magnitude thresholding
 4. Direction thresholding   
 
-I then combined these to get best results with the formula logic of : 
+I then combined these to get best results with the formula logic of :     
 `     combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1
 `
 I experimented with a lot of thresholding values and kernel size and finally chose the one written in the code cells under the heading of "Combining the thresholds of gradients".
@@ -88,7 +88,7 @@ I used 3 gradient thresholding :
 2. l channel from LUV color scheme
 3. b channel from LAB color scheme    (To detect yellow line)
 
-I then combined these to get best results with the formula logic of : 
+I then combined these to get best results with the formula logic of :     
 `        combined_binary[(s_binary == 1) | (l_binary == 1) | (b_binary == 1)] = 1
 `
 I experimented with a lot of thresholding values and finally chose the one written in the code cells under the heading of "Color filters and thresholding".
