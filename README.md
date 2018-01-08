@@ -12,6 +12,6 @@ The goals / steps of this project are the following:
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 
-Find the summary in - `report.md`   
-Find the pipeline in - `advance lane keeping.ipynb`
+Find the summary in - `report.md`    
+Find the pipeline in - `advance lane keeping.ipynb`   
 Find the calibration code in - `camera_calibrate.ipynb`
