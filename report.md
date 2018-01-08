@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [image0]: ./examples/draw_lines.png "Cal Lines"
 [image1a]: ./examples/undistort_cal.png "Undistorted call"
 [image1]: ./examples/undistort.png "Undistorted"
-[image2]: ./examples/grad1thresholding.png "Road threshold"
+[image2]: ./examples/gradthresholding1.png "Road threshold"
 [image3]: ./examples/combinedthresh1.png "combinedthresh1"
 [image4]: ./examples/combinedthresh2.png "combinedthresh1"
 [image5]: ./examples/colorthresholding.png "colorthresholding"
@@ -66,9 +66,10 @@ I used 4 gradient thresholding :
 3. Magnitude thresholding
 4. Direction thresholding   
 
-I then combined these to get best results with the formula logic of :     
-`     combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1
-`
+I then combined these to get best results with the formula logic of :      
+     
+`     combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1        
+`       
 I experimented with a lot of thresholding values and kernel size and finally chose the one written in the code cells under the heading of "Combining the thresholds of gradients".
 
 Here are the examples :   
@@ -88,9 +89,10 @@ I used 3 gradient thresholding :
 2. l channel from LUV color scheme
 3. b channel from LAB color scheme    (To detect yellow line)
 
-I then combined these to get best results with the formula logic of :     
+I then combined these to get best results with the formula logic of :      
+    
 `        combined_binary[(s_binary == 1) | (l_binary == 1) | (b_binary == 1)] = 1
-`
+`      
 I experimented with a lot of thresholding values and finally chose the one written in the code cells under the heading of "Color filters and thresholding".
 
 
