@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [image0]: ./examples/draw_lines.png "Cal Lines"
 [image1a]: ./examples/undistort_cal.png "Undistorted call"
 [image1]: ./examples/undistort.png "Undistorted"
-[image2]: ./examples/gradthresholding.png "Road threshold"
+[image2]: ./examples/grad1thresholding.png "Road threshold"
 [image3]: ./examples/combinedthresh1.png "combinedthresh1"
 [image4]: ./examples/combinedthresh2.png "combinedthresh1"
 [image5]: ./examples/colorthresholding.png "colorthresholding"
@@ -148,14 +148,12 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Identification of lane-line pixels and fit their positions with a polynomial.
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
-
-![alt text][image5]   
 
 ![alt text][image7]
 
 ![alt text][image8]   
 
+![alt text][image9]   
 
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
