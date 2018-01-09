@@ -166,7 +166,10 @@ After calculating the warped image. First I calculate the histogram across the i
 
 Then I passed the histogram to a function find_two_peaks_image to find the center of each of the peaks. This code can be found on the IPython notebook called `advance lane keeping.ipynb` on cell #15 and #16, then I implemented a function called sliding_window to iterate through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes starting from the centers that I found earlier. Margin is set to be 100.
 
-Once I got the pixels I fit them to a 2nd order polynomial of the form: f(y)=Ay^2 + By + C
+I also implemented a guided_search function to Obtain the coordinates of the pixels of a line starting at the same center of the last detected line to avoid doing the sliding window.
+
+Once I got the pixels I fit them to a 2nd order polynomial of the form:      
+`f(y) =  Ay^2 + By + C`
 
 The result obtained for one of the test images is the following:    
 
@@ -177,8 +180,9 @@ The result obtained for one of the test images is the following:
 
 I defined the function `get_curvature_meters` under the cell heading of "Lane Lines Class for storing characteristics" in the file `advance lane keeping.ipynb`.
 
-It is used to convert pixel curves to metres curve according to the assumption that lane width is 3.7m
-Position is calculated in the function draw_lanes() with the formula -
+It is used to convert pixel curves to metres curve according to the assumption that lane width is 3.7m.        
+
+Position is calculated in the function draw_lanes() with the formula to calculate the distance of the center of detected lanes from the center of the image -
 
 ```python
             center = und_image.shape[1]/2
@@ -187,7 +191,22 @@ Position is calculated in the function draw_lanes() with the formula -
             lanes_middle_distance = abs(right_lane.recent_xfitted[-1][0] + left_lane.recent_xfitted[-1][0])/2
             position_car_pixels = center - lanes_middle_distance 
             position_car_meters = position_car_pixels *xm_per_pix
- ```
+ ```            
+
+ Radius of curvature is calculated according to :    
+ 
+```python
+def get_curvature_meters(self, yvals, y_eval, ym_per_pix = 30/720, xm_per_pix = 3.7/700 ):
+
+   side_fit_cr = np.polyfit(self.ally*ym_per_pix, self.allx*xm_per_pix, 2)
+   side_curverad = ((1 + (2*side_fit_cr[0]*y_eval*ym_per_pix  + side_fit_cr[1])**2)**1.5) \
+                       /np.absolute(2*side_fit_cr[0])
+
+
+   return side_curverad
+```
+         
+ ym_per_pixel and xm_per_pixel are the factors used for converting from pixels to meters. This conversion was also used to generate a new fit with coefficients in terms of meters.
 
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
