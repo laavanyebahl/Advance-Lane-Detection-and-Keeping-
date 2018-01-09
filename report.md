@@ -25,8 +25,8 @@ The goals / steps of this project are the following:
 [image8]: ./examples/warp_thresh2.png "Warp Example2"
 [image9]: ./examples/histogram.png "Histogram"
 [image10]: ./examples/lane_lines.png "lanes"
-[image11]: ./examples/lane_output1.png "Output1"
-[image12]: ./examples/lane_output2.png "Output1"
+[image11]: ./examples/lane_output3.png "Output1"
+[image12]: ./examples/lane_output4.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
@@ -207,7 +207,16 @@ def get_curvature_meters(self, yvals, y_eval, ym_per_pix = 30/720, xm_per_pix = 
 ```
          
  ym_per_pixel and xm_per_pixel are the factors used for converting from pixels to meters. This conversion was also used to generate a new fit with coefficients in terms of meters.
-
+ 
+ which is calculated as :-      
+ 
+ ```
+ xm_per_pixel = 3.675 / 700 (3.675 actual width of lane, 700 px on warped image)
+ ym_per_pixel = 3.048 / 190 (3 m actual length of dashed line, 190 px length on warped image)
+ ```
+ Radius  more than 10000 is displayed as 'inf'
+ 
+ 
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
 I implemented this step under the cell heading of "Lane Lines" in the file `advance lane keeping.ipynb` in the function `draw_lane()`.  Here is an example of my result on a test image:
