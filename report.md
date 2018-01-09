@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 
 [image0]: ./examples/draw_lines.png "Cal Lines"
 [image1a]: ./examples/undistort_cal.png "Undistorted call"
-[image1]: ./examples/undistort.png "Undistorted"
+[image1]: ./examples/undistort1.png "Undistorted"
 [image2]: ./examples/gradthresholding1.png "Road threshold"
 [image3]: ./examples/combinedthresh1.png "combinedthresh1"
 [image4]: ./examples/combinedthresh2.png "combinedthresh1"
