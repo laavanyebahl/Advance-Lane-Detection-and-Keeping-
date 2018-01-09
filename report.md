@@ -211,7 +211,7 @@ def get_curvature_meters(self, yvals, y_eval, ym_per_pix = 30/720, xm_per_pix = 
  which is calculated as :-      
  
  ```
- xm_per_pixel = 3.675 / 700 (3.675 actual width of lane, 700 px on warped image)
+ xm_per_pixel = 3.675 / 700 (3.675 m actual width of lane, 700 px on warped image)
  ym_per_pixel = 3.048 / 190 (3 m actual length of dashed line, 190 px length on warped image)
  ```
  Radius  more than 10000 is displayed as 'inf'
