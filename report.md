@@ -169,7 +169,7 @@ The result obtained showing the sliding windows and plotted lane lines for all t
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I defined the function `calculate_rad_curvature_and_position` in the file `advance lane keeping.ipynb` to calculate the radius of curvature and position of car by calculating distance between center of detected lanes from the center of the image -
+I defined the function `calculate_rad_curvature_and_position()` in the file `advance lane keeping.ipynb` to calculate the radius of curvature and position of car by calculating distance between center of detected lanes from the center of the image -
 
 I  convert pixel curves to metres curve according to the assumption that lane width is 3.7m.        
 
@@ -204,7 +204,13 @@ Position is calculated according to the formula :
  
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
-I implemented this step in the function `draw_lane()`in  `advance lane keeping.ipynb`.  Here are the results of all test images:
+I implemented this step in the function `draw_lane()` in  `advance lane keeping.ipynb`.  
+
+A class `LaneLines()` is defined which also stores the recently detected lines and averages the values calculated from these lines for the new ones.
+
+`process_image()` defines the pipeline and calls `draw_lane()` which further calls `calculate_rad_curvature_and_position()`.
+
+Here are the results of all test images:
 
 
 ![alt text][image12]
