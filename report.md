@@ -155,9 +155,9 @@ After calculating the warped image. First I calculate the histogram across the i
 
 ![alt text][image9]   
 
-Then I implemented a function called `sliding_window_polyfit` which takes the histogram and iterates through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes starting from the centers that I found earlier. Margin is set to be 60 and number of windows 10.
+Then I implemented a function called `sliding_window_polyfit()` which takes the histogram and iterates through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes. Margin is set to be 60 and number of windows 10.
 
-I also implemented a `polyfit_using_prev_fit`. If both left and right lines were detected in last frame we use polyfit_using_prev_fit, otherwise we use sliding window.
+I also implemented a `polyfit_using_prev_fit()`. If both left and right lines were detected in last frame we use sliding_window_polyfit(), otherwise we use sliding window.
 
 
 Once I got the pixels I fit them to a 2nd order polynomial of the form:      
@@ -215,8 +215,6 @@ Here are the results of all test images:
 
 
 ![alt text][image12]
-
-It also stores the recent detected lines and averages the data of previously detected line for the result.   
 
 ---
 
