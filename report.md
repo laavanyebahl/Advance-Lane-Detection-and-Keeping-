@@ -20,13 +20,13 @@ The goals / steps of this project are the following:
 [image3]: ./examples/combinedthresh1.png "combinedthresh1"
 [image4]: ./examples/combinedthresh2.png "combinedthresh1"
 [image5]: ./examples/colorthresholding.png "colorthresholding"
+[image5a]: ./examples/color_gradient_thresholding.png "color gradient thresholding"
 [image6]: ./examples/warp_points.png "Warp src points"
-[image7]: ./examples/warp_thresh.png "Warp Example"
-[image8]: ./examples/warp_thresh2.png "Warp Example2"
+[image7]: ./examples/warp_thresh.png "Warp thresh"
+[image8]: ./examples/warp_points_result.png "Warp result"
 [image9]: ./examples/histogram.png "Histogram"
-[image10]: ./examples/lane_lines.png "lanes"
-[image11]: ./examples/lane_output3.png "Output1"
-[image12]: ./examples/lane_output4.png "Output1"
+[image11]: ./examples/sliding_windows.png "sliding windows"
+[image12]: ./examples/lane_outputs.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
@@ -70,7 +70,8 @@ I used 4 gradient thresholding :
 I then combined these to get best results with the formula logic of :      
      
 `     combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1        
-`       
+`             
+
 I experimented with a lot of thresholding values and kernel size and finally chose the one written in the code cells under the heading of "Combining the thresholds of gradients".
 
 Here are the examples :   
@@ -85,17 +86,23 @@ This is final combined images :
 
 #### 2b. Use of color transforms.
 
-I used 3 gradient thresholding :  
-1. s color from the HLS color scheme.
-2. l channel from LUV color scheme
-3. b channel from LAB color scheme    (To detect yellow line)
+I used 5 gradient thresholding :  
+1. s channel from the HLS color scheme.
+2. l channel from the HLS color scheme.
+3. l channel from LUV color scheme
+4. b channel from LAB color scheme    (To detect yellow line)
+5. y channel from Ycbcr color scheme   
 
+Among these Lab and Ycbcr gave the best results to detect yellow and white lines respectively.
 I then combined these to get best results with the formula logic of :      
     
-`        combined_binary[(s_binary == 1) | (l_binary == 1) | (b_binary == 1)] = 1
 `      
+    combined_binary[(ycbcr_y_binary == 1) | (lab_b_binary == 1) ] = 1
+`      
+      
 I experimented with a lot of thresholding values and finally chose the one written in the code cells under the heading of "Color filters and thresholding".
 
+![alt text][image5]   
 
 #### 2c. Merging of color transforms and gradients to create a thresholded binary image.  
 
@@ -103,59 +110,43 @@ I experimented with a lot of thresholding values and finally chose the one writt
 Finally I combined both color filtering and gradient thresholding to get a binary image clearly showing the lane lines.
 The following image illustrates the whole process :
 
-![alt text][image5]   
+![alt text][image5a]   
 
 
 #### 3. Description of perspective transform.
 
-The code for my perspective transform includes a function called `warp_img()`, which appears under the cell heading of "Warping - Perpesctive Transform and Birds Eye View" in the file `advance lane keeping.ipynb`. The `warp_img()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warp()`, which appears under the cell heading of "Warping - Perpesctive Transform and Birds Eye View" in the file `advance lane keeping.ipynb`. The `warp()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-    horizon = np.uint(2*image_size[0]/3)
-    center_lane = np.uint(image_size[1]/2)
-    offset = 0.2
 
-    x_left_bottom = center_lane - center_lane
-    x_right_bottom = 2*center_lane
-    x_right_upper = center_lane + offset*center_lane
-    x_left_upper = center_lane - offset*center_lane
+src_points = np.float32([
+                  (260, 682), 
+                  (1049,682), 
+                  (684,450),
+                  (595,450)
+                ])
 
-
-    src_points = np.float32([
-                           [x_left_bottom, y],
-                           [x_right_bottom, y],
-                           [x_right_upper, horizon],
-                           [x_left_upper, horizon]
-                          ])
-
-    dst_points = np.float32([
-                            [0.15*x,y],
-                            [x - 0.15*x,y],
-                            [x - 0.15*x,0],
-                            [0.15*x,0]
-                            ])
+dst_points = np.float32([                 
+                  (450,y),
+                  (x-450,y),
+                  (x-450,0),
+                  (450,0)
+                        ])
 
 ```    
-Here is the vizualization - 
+Here is the vizualization -    
 
-![alt text][image6]   
+![alt text][image6]     
+ 
 
+I verified that my perspective transform was working as expected by drawing the `dst` points onto a warped image to verify that the lines appear parallel in the warped image.     
 
-This resulted in the following source and destination points:
+![alt text][image8]      
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-|  0, 720       | 192, 720       | 
-| 1280, 720     | 1088, 720    |
-| 768, 480      | 1088, 0       |
-| 512, 480      | 192, 0         |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+Here the warp results of all test images :     
 
 
-![alt text][image7]
-
-![alt text][image8] 
+![alt text][image7]   
 
 
 #### 4. Identification of lane-line pixels and fit their positions with a polynomial.
@@ -164,46 +155,41 @@ After calculating the warped image. First I calculate the histogram across the i
 
 ![alt text][image9]   
 
-Then I passed the histogram to a function find_two_peaks_image to find the center of each of the peaks. This code can be found on the IPython notebook called `advance lane keeping.ipynb` on cell #15 and #16, then I implemented a function called sliding_window to iterate through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes starting from the centers that I found earlier. Margin is set to be 100.
+Then I implemented a function called `sliding_window_polyfit()` which takes the histogram and iterates through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes. Margin is set to be 60 and number of windows 10.
 
-I also implemented a guided_search function to Obtain the coordinates of the pixels of a line starting at the same center of the last detected line to avoid doing the sliding window.
+I also implemented a `polyfit_using_prev_fit()`. If both left and right lines were detected in last frame we use sliding_window_polyfit(), otherwise we use sliding window.
+
 
 Once I got the pixels I fit them to a 2nd order polynomial of the form:      
 `f(y) =  Ay^2 + By + C`
 
-The result obtained for one of the test images is the following:    
+The result obtained showing the sliding windows and plotted lane lines for all the test images can be seen below:    
 
-![alt text][image10]   
+![alt text][image11]  
 
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I defined the function `get_curvature_meters` under the cell heading of "Lane Lines Class for storing characteristics" in the file `advance lane keeping.ipynb`.
+I defined the function `calculate_rad_curvature_and_position()` in the file `advance lane keeping.ipynb` to calculate the radius of curvature and position of car by calculating distance between center of detected lanes from the center of the image -
 
-It is used to convert pixel curves to metres curve according to the assumption that lane width is 3.7m.        
+I  convert pixel curves to metres curve according to the assumption that lane width is 3.7m.        
 
-Position is calculated in the function draw_lanes() with the formula to calculate the distance of the center of detected lanes from the center of the image -
+Position is calculated according to the formula :
 
 ```python
-            center = und_image.shape[1]/2
-            xm_per_pix = 3.7/700
-
-            lanes_middle_distance = abs(right_lane.recent_xfitted[-1][0] + left_lane.recent_xfitted[-1][0])/2
-            position_car_pixels = center - lanes_middle_distance 
-            position_car_meters = position_car_pixels *xm_per_pix
+        lane_center_position = (r_fit_x_int + l_fit_x_int) /2
+        center_dist = (car_position - lane_center_position) * xm_per_pix
  ```            
 
- Radius of curvature is calculated according to :    
+ Radius of curvature is calculated according to the formula :    
  
 ```python
-def get_curvature_meters(self, yvals, y_eval, ym_per_pix = 30/720, xm_per_pix = 3.7/700 ):
-
-   side_fit_cr = np.polyfit(self.ally*ym_per_pix, self.allx*xm_per_pix, 2)
-   side_curverad = ((1 + (2*side_fit_cr[0]*y_eval*ym_per_pix  + side_fit_cr[1])**2)**1.5) \
-                       /np.absolute(2*side_fit_cr[0])
-
-
-   return side_curverad
+        left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
+        right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
+        # Calculate the new radii of curvature
+        left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+        right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+  
 ```
          
  ym_per_pixel and xm_per_pixel are the factors used for converting from pixels to meters. This conversion was also used to generate a new fit with coefficients in terms of meters.
@@ -211,17 +197,22 @@ def get_curvature_meters(self, yvals, y_eval, ym_per_pix = 30/720, xm_per_pix = 
  which is calculated as :-      
  
  ```
- xm_per_pixel = 3.675 / 700 (3.675 m actual width of lane, 700 px on warped image)
- ym_per_pixel = 3.048 / 190 (3 m actual length of dashed line, 190 px length on warped image)
+ xm_per_pixel = 3.7 /375 ( 3.7 actual width of lane, 375 px on warped image)
+ ym_per_pixel = 3.0 / 75 (3.0 m actual length of dashed line, 75 px length on warped image) 
  ```
- Radius  more than 10000 is displayed as 'inf'
+ Radius  more than 8000 is displayed as 'inf'
  
  
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
-I implemented this step under the cell heading of "Lane Lines" in the file `advance lane keeping.ipynb` in the function `draw_lane()`.  Here is an example of my result on a test image:
+I implemented this step in the function `draw_lane()` in  `advance lane keeping.ipynb`.  
 
-![alt text][image11]  
+A class `LaneLines()` is defined which also stores the recently detected lines and averages the values calculated from these lines for the new ones.
+
+`process_image()` defines the pipeline and calls `draw_lane()` which further calls `calculate_rad_curvature_and_position()`.
+
+Here are the results of all test images:
+
 
 ![alt text][image12]
 
