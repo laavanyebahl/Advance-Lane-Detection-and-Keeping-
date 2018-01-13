@@ -23,6 +23,7 @@ The goals / steps of this project are the following:
 [image5a]: ./examples/color_gradient_thresholding.png "color gradient thresholding"
 [image6]: ./examples/warp_points.png "Warp src points"
 [image7]: ./examples/warp_thresh.png "Warp thresh"
+[image8]: ./examples/warp_points_result.png "Warp result"
 [image9]: ./examples/histogram.png "Histogram"
 [image11]: ./examples/sliding_windows.png "sliding windows"
 [image12]: ./examples/lane_outputs.png "Output1"
@@ -84,7 +85,7 @@ This is final combined images :
 
 #### 2b. Use of color transforms.
 
-I used 3 gradient thresholding :  
+I used 5 gradient thresholding :  
 1. s channel from the HLS color scheme.
 2. l channel from the HLS color scheme.
 3. l channel from LUV color scheme
@@ -97,6 +98,7 @@ I then combined these to get best results with the formula logic of :
 `      
     combined_binary[(ycbcr_y_binary == 1) | (lab_b_binary == 1) ] = 1
 `      
+      
 I experimented with a lot of thresholding values and finally chose the one written in the code cells under the heading of "Color filters and thresholding".
 
 ![alt text][image5]   
@@ -112,7 +114,7 @@ The following image illustrates the whole process :
 
 #### 3. Description of perspective transform.
 
-The code for my perspective transform includes a function called `warp_img()`, which appears under the cell heading of "Warping - Perpesctive Transform and Birds Eye View" in the file `advance lane keeping.ipynb`. The `warp_img()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warp()`, which appears under the cell heading of "Warping - Perpesctive Transform and Birds Eye View" in the file `advance lane keeping.ipynb`. The `warp()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
 
@@ -134,9 +136,13 @@ dst_points = np.float32([
 Here is the vizualization -    
 
 ![alt text][image6]     
+ 
 
+I verified that my perspective transform was working as expected by drawing the `dst` points onto a warped image to verify that the lines appear parallel in the warped image.     
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+![alt text][image8]      
+
+Here the warp results of all test images :     
 
 
 ![alt text][image7]   
@@ -198,10 +204,12 @@ Position is calculated according to the formula :
  
 #### 6. Example image of result plotted back down onto the road where the lane area is identified clearly.
 
-I implemented this step under the cell heading of "Lane Lines" in the file `advance lane keeping.ipynb` in the function `draw_lane()`.  Here are the results of all test images:
+I implemented this step in the function `draw_lane()`in  `advance lane keeping.ipynb`.  Here are the results of all test images:
 
 
 ![alt text][image12]
+
+It also stores the recent detected lines and averages the data of previously detected line for the result.   
 
 ---
 
