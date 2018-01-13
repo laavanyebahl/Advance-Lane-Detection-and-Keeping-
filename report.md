@@ -70,7 +70,8 @@ I used 4 gradient thresholding :
 I then combined these to get best results with the formula logic of :      
      
 `     combined[((gradx == 1) & (grady == 1)) | ((mag_binary == 1) & (dir_binary == 1))] = 1        
-`       
+`             
+
 I experimented with a lot of thresholding values and kernel size and finally chose the one written in the code cells under the heading of "Combining the thresholds of gradients".
 
 Here are the examples :   
