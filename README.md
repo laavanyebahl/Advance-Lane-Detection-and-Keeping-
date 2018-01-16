@@ -30,10 +30,14 @@ Find the calibration code in - `camera_calibrate.ipynb`
 [image5a]: ./examples/color_gradient_thresholding.png "color gradient thresholding"
 [image6]: ./examples/warp_points.png "Warp src points"
 [image7]: ./examples/warp_thresh.png "Warp thresh"
+[image7a]: ./examples/warp_thresh2.png "Warp thresh"
 [image8]: ./examples/warp_points_result.png "Warp result"
 [image9]: ./examples/histogram.png "Histogram"
+[image9a]: ./examples/histogram.png "Histogram"
 [image11]: ./examples/sliding_windows.png "sliding windows"
+[image11a]: ./examples/sliding_windows.png "sliding windows"
 [image12]: ./examples/lane_outputs.png "Output1"
+[image12a]: ./examples/lane_outputs.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
@@ -156,11 +160,23 @@ Here the warp results of all test images :
 ![alt text][image7]   
 
 
+Reversing the order first warp then threshold :
+
+
+![alt text][image7a]   
+
+
+
 #### 4. Identification of lane-line pixels and fit their positions with a polynomial.
   
 After calculating the warped image. First I calculate the histogram across the image, this was implemented using numpy.sum() to sum all the pixels on the rows, the result is the following:      
 
 ![alt text][image9]   
+
+Reversing the order first warp then threshold :
+
+![alt text][image9a]   
+
 
 Then I implemented a function called `sliding_window_polyfit()` which takes the histogram and iterates through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes. Margin is set to be 60 and number of windows 10.
 
@@ -173,6 +189,10 @@ Once I got the pixels I fit them to a 2nd order polynomial of the form:
 The result obtained showing the sliding windows and plotted lane lines for all the test images can be seen below:    
 
 ![alt text][image11]  
+
+Reversing the order first warp then threshold :   
+
+![alt text][image11a]    
 
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -222,6 +242,11 @@ Here are the results of all test images:
 
 
 ![alt text][image12]
+
+Reversing the order first warp then threshold :   
+
+![alt text][image12a]   
+
 
 ---
 
