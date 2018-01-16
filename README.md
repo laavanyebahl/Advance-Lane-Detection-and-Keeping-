@@ -33,11 +33,11 @@ Find the calibration code in - `camera_calibrate.ipynb`
 [image7a]: ./examples/warp_thresh2.png "Warp thresh"
 [image8]: ./examples/warp_points_result.png "Warp result"
 [image9]: ./examples/histogram.png "Histogram"
-[image9a]: ./examples/histogram.png "Histogram"
+[image9a]: ./examples/histogram2.png "Histogram"
 [image11]: ./examples/sliding_windows.png "sliding windows"
-[image11a]: ./examples/sliding_windows.png "sliding windows"
+[image11a]: ./examples/sliding_windows2.png "sliding windows"
 [image12]: ./examples/lane_outputs.png "Output1"
-[image12a]: ./examples/lane_outputs.png "Output1"
+[image12a]: ./examples/lane_outputs2.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
@@ -160,7 +160,7 @@ Here the warp results of all test images :
 ![alt text][image7]   
 
 
-Reversing the order first warp then threshold :
+-----------------------------Reversing the order :  `first warp then threshold` ---------------------------  
 
 
 ![alt text][image7a]   
@@ -173,7 +173,7 @@ After calculating the warped image. First I calculate the histogram across the i
 
 ![alt text][image9]   
 
-Reversing the order first warp then threshold :
+-----------------------------Reversing the order :  `first warp then threshold` ---------------------------  
 
 ![alt text][image9a]   
 
@@ -190,7 +190,7 @@ The result obtained showing the sliding windows and plotted lane lines for all t
 
 ![alt text][image11]  
 
-Reversing the order first warp then threshold :   
+-----------------------------Reversing the order :  `first warp then threshold` ---------------------------  
 
 ![alt text][image11a]    
 
@@ -243,7 +243,7 @@ Here are the results of all test images:
 
 ![alt text][image12]
 
-Reversing the order first warp then threshold :   
+-----------------------------Reversing the order :  `first warp then threshold` ---------------------------  
 
 ![alt text][image12a]   
 
