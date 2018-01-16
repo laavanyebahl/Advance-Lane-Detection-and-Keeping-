@@ -160,11 +160,23 @@ Here the warp results of all test images :
 ![alt text][image7]   
 
 
+Reversing the order first warp then threshold :
+
+
+![alt text][image7a]   
+
+
+
 #### 4. Identification of lane-line pixels and fit their positions with a polynomial.
   
 After calculating the warped image. First I calculate the histogram across the image, this was implemented using numpy.sum() to sum all the pixels on the rows, the result is the following:      
 
 ![alt text][image9]   
+
+Reversing the order first warp then threshold :
+
+![alt text][image9a]   
+
 
 Then I implemented a function called `sliding_window_polyfit()` which takes the histogram and iterates through the image and find the x coordinates and y coordinates of the pixels that corresponded to the lanes. Margin is set to be 60 and number of windows 10.
 
@@ -177,6 +189,10 @@ Once I got the pixels I fit them to a 2nd order polynomial of the form:
 The result obtained showing the sliding windows and plotted lane lines for all the test images can be seen below:    
 
 ![alt text][image11]  
+
+Reversing the order first warp then threshold :   
+
+![alt text][image11a]    
 
 
 #### 5. Calculation of the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -226,6 +242,11 @@ Here are the results of all test images:
 
 
 ![alt text][image12]
+
+Reversing the order first warp then threshold :   
+
+![alt text][image12a]   
+
 
 ---
 
