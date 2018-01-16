@@ -30,10 +30,14 @@ Find the calibration code in - `camera_calibrate.ipynb`
 [image5a]: ./examples/color_gradient_thresholding.png "color gradient thresholding"
 [image6]: ./examples/warp_points.png "Warp src points"
 [image7]: ./examples/warp_thresh.png "Warp thresh"
+[image7a]: ./examples/warp_thresh2.png "Warp thresh"
 [image8]: ./examples/warp_points_result.png "Warp result"
 [image9]: ./examples/histogram.png "Histogram"
+[image9a]: ./examples/histogram.png "Histogram"
 [image11]: ./examples/sliding_windows.png "sliding windows"
+[image11a]: ./examples/sliding_windows.png "sliding windows"
 [image12]: ./examples/lane_outputs.png "Output1"
+[image12a]: ./examples/lane_outputs.png "Output1"
 
 
 [video1]: ./output_videos/project_video_out.mp4 "Video"
