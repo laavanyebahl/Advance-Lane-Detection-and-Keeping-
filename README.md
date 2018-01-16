@@ -160,7 +160,7 @@ Here the warp results of all test images :
 ![alt text][image7]   
 
 
------------------------------Reversing the order :  `first warp then threshold` ---------------------------  
+--------------------------------------- Reversing the order :  `first warp then threshold` -------------------------------  
 
 
 ![alt text][image7a]   
@@ -173,7 +173,7 @@ After calculating the warped image. First I calculate the histogram across the i
 
 ![alt text][image9]   
 
------------------------------Reversing the order :  `first warp then threshold` ---------------------------  
+--------------------------------------- Reversing the order :  `first warp then threshold` -------------------------------  
 
 ![alt text][image9a]   
 
@@ -190,7 +190,7 @@ The result obtained showing the sliding windows and plotted lane lines for all t
 
 ![alt text][image11]  
 
------------------------------Reversing the order :  `first warp then threshold` ---------------------------  
+--------------------------------------- Reversing the order :  `first warp then threshold` -------------------------------  
 
 ![alt text][image11a]    
 
@@ -243,7 +243,7 @@ Here are the results of all test images:
 
 ![alt text][image12]
 
------------------------------Reversing the order :  `first warp then threshold` ---------------------------  
+--------------------------------------- Reversing the order :  `first warp then threshold` -------------------------------  
 
 ![alt text][image12a]   
 
